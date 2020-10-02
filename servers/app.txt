@@ -1,0 +1,6 @@
+npm install express -S
+npm install cookie-parser -S
+npm install morgan -S
+npm install mongoose -S
+npm install jsonwebtoken -S
+npm install bcrypt -S
