@@ -3,8 +3,26 @@ var router = express.Router();
 var Users = require('../models/Users');
 const secret = 'dontlook'
 
+/* GET users list */
 router.get('/list', function(req, res) {
-  res.send('fuck you')
+  let response = [];
+  Users.find({})
+    .then(result => {
+      response = result.map(item=>{
+        return{
+          _id : item._id,
+          email : item.email,
+          password : item.password,
+          token : item.token
+        }
+      })
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).json({
+        response
+      });
+    })
 })
 
 router.post('/list', function(req, res, next){
@@ -56,7 +74,8 @@ router.post('/register', function(req, res, next){
       .catch(err => {
         res.status(500).json({
           error: true,
-          message: "error user find one"
+          message: "error user find one",
+          err:err
         })
       })
   }
